@@ -1,0 +1,34 @@
+<div>
+    <h2>Select Tarot Cards:</h2>
+  
+    <div class="card-container">
+      <div class="card" *ngFor="let card of tarotCards" [ngClass]="{ 'selected': isCardSelected(card.name) }">
+        <button (click)="selectCard(card.name)"></button>
+        <p *ngIf="card.isVisible">{{ card.name }}</p>
+      </div>
+    </div>
+  
+    <div class="prompt">
+      <label for="question">Enter your question:</label>
+      <input type="text" id="question" [(ngModel)]="userQuestion" />
+    </div>
+  
+    <div class="popup" *ngIf="selectedCards.length === 3">
+      <div class="popup-content">
+        <h1>Selected Cards:</h1>
+        <ul>
+          <li *ngFor="let selectedCard of selectedCards">
+            {{ selectedCard.label }}: {{ selectedCard.card }}
+          </li>
+        </ul>
+        <button (click)="clearSelection()">Clear Selection</button>
+        <button (click)="sendQuestion()">Submit Question</button>
+      </div>
+    </div>
+  
+    <div *ngIf="response">
+      <h2>ChatGPT Response:</h2>
+      <p>{{ response }}</p>
+    </div>
+  </div>
+  
